@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import LeadDashboard from "./Dashboards/LeadDashboard";
+import LeadDashboard from "./LeadProfile";
 import MemberDashboard from "./Dashboards/MemberDashboard";
 
 type UserRole = {
