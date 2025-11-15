@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
 import Sidebar from "../components/Sidebar";
+import Profile from "./Profile";
 
 function Dashboards() {
   const [username, setUsername] = useState<string>("");
   const [role, setRole] = useState<string>("");
+  const [selectedTab, setSelectedTab] = useState<string>("Home");
 
   useEffect(() => {
     api
@@ -23,15 +25,35 @@ function Dashboards() {
       .catch((err) => console.error(err));
   }, []);
 
+  const renderTabContent = () => {
+    switch (selectedTab) {
+      case "Home":
+        return (
+          <>
+            <h2 className="text-3xl font-semibold mb-4">Dashboard</h2>
+            <p className="mb-6">
+              Welcome, <span className="font-bold">{username}</span>!
+            </p>
+          </>
+        );
+      case "Profile":
+        return <Profile />;
+      case "Domains":
+        return <div>Domains Content for Members</div>;
+      case "Your domain":
+        return <div>Your Domain Content for Leads</div>;
+      case "Logout":
+        return <div>Logging out...</div>;
+      default:
+        return <div>Select a tab</div>;
+    }
+  };
+
   return (
     <div className="flex h-screen">
-      <Sidebar role={role} />
-
-      <main className="flex-1 bg-blue-200 p-8">
-        <h2 className="text-3xl font-semibold mb-4">Dashboard</h2>
-        <p className="mb-6">
-          Welcome, <span className="font-bold">{username}</span>!
-        </p>
+      <Sidebar role={role} onTabSelect={(tab) => setSelectedTab(tab)} />
+      <main className="flex-1 bg-blue-200 p-8 overflow-auto">
+        {renderTabContent()}
       </main>
     </div>
   );
