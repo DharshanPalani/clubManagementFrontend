@@ -4,18 +4,14 @@ import Sidebar from "../components/Sidebar";
 import Profile from "./Profile";
 
 function Dashboards() {
-  const [username, setUsername] = useState<string>("");
   const [role, setRole] = useState<string>("");
   const [selectedTab, setSelectedTab] = useState<string>("Profile");
 
   useEffect(() => {
-    api
-      .get<any>("/auth/me", { withCredentials: true })
-      .then((res) => setUsername(res.data.username))
-      .catch((error) => {
-        console.error(error);
-        alert("Failed to fetch user info");
-      });
+    api.get<any>("/auth/me", { withCredentials: true }).catch((error) => {
+      console.error(error);
+      alert("Failed to fetch user info");
+    });
   }, []);
 
   useEffect(() => {
