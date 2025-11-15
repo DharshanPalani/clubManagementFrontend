@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../api/axios";
-import LeadDashboard from "./LeadProfile";
+import LeadProfile from "./LeadProfile";
 import MemberDashboard from "./Dashboards/MemberDashboard";
 
 type UserRole = {
@@ -22,7 +22,7 @@ function Profile() {
 
     fetchData();
   }, []);
-  return role === "lead" ? <LeadDashboard /> : <MemberDashboard />;
+  return role === "lead" ? <LeadProfile /> : <MemberDashboard />;
 }
 
 export default Profile;

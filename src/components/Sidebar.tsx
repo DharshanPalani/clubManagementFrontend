@@ -16,7 +16,7 @@ function Sidebar({ role, onTabSelect }: SidebarProps) {
     <div className="w-64 bg-blue-800 text-white flex flex-col p-6">
       <h1 className="text-2xl font-bold mb-8">GTECH</h1>
       <div className="flex flex-col space-y-3">
-        {["Home", "Profile", roleBasedText, "Logout"].map((tab) => (
+        {["Profile", roleBasedText, "Logout"].map((tab) => (
           <button
             key={tab}
             onClick={() => onTabSelect(tab)}

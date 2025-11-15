@@ -6,7 +6,7 @@ import Profile from "./Profile";
 function Dashboards() {
   const [username, setUsername] = useState<string>("");
   const [role, setRole] = useState<string>("");
-  const [selectedTab, setSelectedTab] = useState<string>("Home");
+  const [selectedTab, setSelectedTab] = useState<string>("Profile");
 
   useEffect(() => {
     api
@@ -27,15 +27,6 @@ function Dashboards() {
 
   const renderTabContent = () => {
     switch (selectedTab) {
-      case "Home":
-        return (
-          <>
-            <h2 className="text-3xl font-semibold mb-4">Dashboard</h2>
-            <p className="mb-6">
-              Welcome, <span className="font-bold">{username}</span>!
-            </p>
-          </>
-        );
       case "Profile":
         return <Profile />;
       case "Domains":

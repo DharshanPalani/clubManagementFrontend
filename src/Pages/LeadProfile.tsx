@@ -5,7 +5,7 @@ type leadData = {
   domain_name: string;
 };
 
-function LeadDashboard() {
+function LeadProfile() {
   const [leadDomain, setLeadDomain] = useState("");
 
   useEffect(() => {
@@ -17,4 +17,4 @@ function LeadDashboard() {
   return <div>Your domain name is {leadDomain}</div>;
 }
 
-export default LeadDashboard;
+export default LeadProfile;
