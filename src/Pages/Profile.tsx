@@ -1,12 +1,61 @@
+import { useEffect, useState } from "react";
+import api from "../api/axios";
+
 function Profile() {
-  // test dummy data, need to add the frontend logic to fetch and save in state
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [domains, setDomains] = useState<string[]>([]);
+  const [role, setRole] = useState("");
+
   const user = {
-    name: "Joey",
-    email: "joey.contact@gmail.com",
-    phone: "6767676767",
-    role: "lead",
-    domains: ["Web developer"],
+    name: name,
+    email: email,
+    phone: phone,
+    role: role,
+    domains: domains,
   };
+
+  type profilePayload = {
+    data: {
+      email: string;
+      phone: string;
+    };
+  };
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const profileRes = await api.get<profilePayload>(
+          "/user/profile/getPhoneEmail",
+          {
+            withCredentials: true,
+          }
+        );
+        setEmail(profileRes.data.data.email);
+        setPhone(profileRes.data.data.phone);
+
+        const roleRes = await api.get("/user/role/getRole", {
+          withCredentials: true,
+        });
+
+        setRole(roleRes.data.role);
+
+        if (roleRes.data.role === "lead") {
+          const domainsRes = await api.get("/admin/domain/getDomain", {
+            withCredentials: true,
+          });
+
+          const d = domainsRes.data.domain_name;
+          setDomains(Array.isArray(d) ? d : [d]);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   return (
     <div className="p-6">
